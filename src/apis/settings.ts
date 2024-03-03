@@ -1,13 +1,5 @@
-/* eslint-disable sonarjs/no-identical-functions */
 import camelcaseKeys, { CamelCaseKeys } from "camelcase-keys";
 import snakecaseKeys from "snakecase-keys";
-
-import {
-  buildMockResponse,
-  // mockSettingsValue,
-  // mockProfileSettingsValue,
-} from "@mocks/settings";
-// import { mockValue, buildMockResponse } from "@mocks/sniper";
 import baseInstance from "./baseInstance";
 
 export type Settings = {
@@ -68,30 +60,13 @@ export const getPrivateKey = async () => {
   return data;
 };
 
-const buyMock = {
-  repeat_transaction: 0,
-  slippage: 0.9999,
-  from_token: "So11111111111111111111111111111111111111112",
-  swap_platforms: ["jupiter", "raydium"],
-  compute_unit_limit: 1400000,
-  compute_unit_price: 0.000005,
-};
-
 export const getBuySettings = async () => {
-  // const { data } =
-  //   await baseInstance.get<ExchangeSettingsResponse>(`/settings/buy`);
-
-  const { data } = await buildMockResponse(buyMock);
-
+  const { data } = await baseInstance.get<ExchangeSettingsResponse>(`/settings/buy`);
   return camelcaseKeys(data);
 };
 
 export const getSellSettings = async () => {
-  // const { data } =
-  //   await baseInstance.get<ExchangeSettingsResponse>(`/settings/sell`);
-
-  const { data } = await buildMockResponse(buyMock);
-
+  const { data } = await baseInstance.get<ExchangeSettingsResponse>(`/settings/sell`);
   return camelcaseKeys(data);
 };
 
@@ -99,8 +74,6 @@ export const getSnipedChannels = async () => {
   const response = await baseInstance.get<{ channels: Channel[] }>(
     `/settings/sniped_channels`,
   );
-
-  // const mockResponse = await buildMockResponse(mockValue);
 
   return camelcaseKeys(response.data, { deep: true });
 };

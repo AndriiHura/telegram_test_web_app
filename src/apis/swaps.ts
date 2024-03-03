@@ -13,7 +13,7 @@ export type ExchangeTokenDto = {
 export type ExchangeTokenResponse = {
   signature: string;
   url_scanner: string;
-  // Date
+  // Stringified date
   create_at: string;
 };
 
@@ -69,8 +69,6 @@ export const getSwaps = async (params: { page: number; size: number }) => {
   const response = await baseInstance.get<{
     swaps: Swap[];
   }>(`/swaps/all`, { params });
-
-  // const responseMock = await mockResponse;
 
   return camelcaseKeys(response.data, { deep: true });
 };

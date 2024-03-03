@@ -1,9 +1,5 @@
 import camelcaseKeys from "camelcase-keys";
-
-// import baseInstance from "./baseInstance";
-
-import { mockResponse } from "@mocks/wallet";
-import { buildMockResponse } from "@mocks/settings";
+import baseInstance from "./baseInstance";
 
 export type TokenResponse = {
   id: string;
@@ -24,49 +20,23 @@ export type TokenResponse = {
 
 export type Token = Awaited<ReturnType<typeof getTokenById>>;
 
-export const getTokens = async (_params: { page: number; size: number }) => {
-  // const response = await baseInstance.get<{
-  //   total_value: number;
-  //   tokens: TokenResponse[];
-  // }>(`/wallet/tokens`, {
-  //   params,
-  // });
-
-  const mock = await mockResponse;
-
-  return camelcaseKeys(mock.data, { deep: true });
-};
-
-const mock1 = {
-  id: "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-  market_cap: 0,
-  value: null,
-  amount: 0.031591,
-  pnl: null,
-  metadata: {
-    name: "Raydium",
-    symbol: "RAY",
-    description: null,
-    image_url: null,
-  },
-};
-
-export const getTokenById = async (_id: string) => {
-  // const { data } = await baseInstance.get<TokenResponse>(
-  //   `/wallet/tokens/${id}`,
-  // );
-
-  const { data } = await buildMockResponse(mock1);
+export const getTokens = async (params: { page: number; size: number }) => {
+  const { data } = await baseInstance.get<{
+    total_value: number;
+    tokens: TokenResponse[];
+  }>(`/wallet/tokens`, {
+    params,
+  });
 
   return camelcaseKeys(data, { deep: true });
 };
 
-const mock2 = 1099;
+export const getTokenById = async (id: string) => {
+  const { data } = await baseInstance.get<TokenResponse>(`/wallet/tokens/${id}`);
+  return camelcaseKeys(data, { deep: true });
+};
 
 export const getSOLBalance = async () => {
-  // const { data } = await baseInstance.get<number>("/wallet/balance/SOL");
-
-  const { data } = await buildMockResponse(mock2);
-
+  const { data } = await baseInstance.get<number>("/wallet/balance/SOL");
   return data;
 };
