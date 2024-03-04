@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { clsx } from "clsx";
 
 import formatBugNumbers from "@utils/formatBigNumbers";
@@ -13,12 +13,17 @@ type Props = {
 };
 
 const WalletTransactionItem: React.FC<Props> = ({ transaction }) => {
+  const [, setLocation] = useLocation()
   const { value, marketCap, pnl, amount, metadata } = transaction;
   const { name, symbol, imageUrl } = metadata;
 
+  const goToExchange = () => {
+    setLocation(`/exchange/${transaction.id}`);
+  };
+
   return (
     <li className={classes.transaction}>
-      <Link href={`/exchange/${transaction.id}`} className={classes.title}>
+      <h3 className={classes.title}>
         <div className={classes.nameContainer}>
           <div className={classes.avatar}>
             {imageUrl ? (
@@ -27,10 +32,13 @@ const WalletTransactionItem: React.FC<Props> = ({ transaction }) => {
               name[0].toUpperCase()
             )}
           </div>
-          <span className={classes.name}>{name}</span>
+          <button onClick={goToExchange} className={classes.exchangeButton}>
+            <span className={classes.name}>{name}</span>
+          </button>
         </div>
+
         <span className={classes.cap}>${formatBugNumbers(marketCap || 0)}</span>
-      </Link>
+      </h3>
       <div className={classes.info}>
         <div className={classes.column}>
           <div className={classes.title}>Value</div>
