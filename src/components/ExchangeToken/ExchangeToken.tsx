@@ -32,7 +32,7 @@ const ExchangeToken: React.FC<Props> = ({ token }) => {
           </div>
           <span className={classes.name}>{name}</span>
         </div>
-        <span className={classes.cap}>${formatBugNumbers(marketCap)}</span>
+        <span className={classes.cap}>${marketCap ? formatBugNumbers(marketCap) : "Unknown"}</span>
       </div>
       <div className={classes.info}>
         <div className={classes.column}>
