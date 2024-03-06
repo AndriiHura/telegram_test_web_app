@@ -6,10 +6,12 @@ import { Transaction } from "@stores/WalletStore";
 
 import classes from "./styles.module.css";
 
-type Props = { pnl: Transaction["pnl"] };
+type Props = {
+  pnl?: Transaction["pnl"] | null
+};
 
 const PNL: React.FC<Props> = ({ pnl }) => {
-  if (pnl === null) {
+  if (!pnl) {
     return (
       <div className={clsx(classes.column, classes.alignCenter)}>
         <div className={classes.title}>Trade PNL</div>

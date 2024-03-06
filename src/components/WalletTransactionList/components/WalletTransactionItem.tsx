@@ -32,8 +32,11 @@ const WalletTransactionItem: React.FC<Props> = ({ transaction }) => {
               name[0].toUpperCase()
             )}
           </div>
-          <button onClick={goToExchange} className={classes.exchangeButton}>
-            <span className={classes.name}>{name}</span>
+          <button
+            className={classes.name}
+            onClick={goToExchange}
+          >
+            {name}
           </button>
         </div>
 

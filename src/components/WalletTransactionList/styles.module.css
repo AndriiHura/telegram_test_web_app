@@ -52,10 +52,9 @@
           background: var(--rb-gradient-color-2);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-        }
 
-        > .exchangeButton {
-          background: none;
+          font-size: 1rem;
+          font-weight: bold;
           outline: none;
           border: none;
         }
