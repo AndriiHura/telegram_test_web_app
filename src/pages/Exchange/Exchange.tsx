@@ -1,6 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable unicorn/consistent-function-scoping */
-/* eslint-disable sonarjs/cognitive-complexity */
 import {
   Dispatch,
   FC,
@@ -151,7 +148,7 @@ const Exchange: FC = () => {
           onChange={setAmount}
           balance={!isSelling ? solBalance ?? 0 : token?.amount ?? 0}
           type={!isSelling ? "SOL" : "ROCK"}
-          masks={["decimal"]}
+          masks={["sol"]}
         />
 
         <FormItem

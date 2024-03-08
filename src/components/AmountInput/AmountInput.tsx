@@ -32,9 +32,20 @@ const AmountInput: React.FC<Props> = ({
     setPercent(value / (balance / 100));
   };
 
-  const handleChangeSlider = (value: number) => {
-    setPercent(value);
-    const newValue = Math.round((balance / 100) * value);
+  const handleChangeSlider = (percent: number) => {
+    setPercent(percent);
+    let multiplier = 1;
+    let multipliedBalance = balance;
+
+    while (multipliedBalance % 1 !== 0) {
+      multiplier *= 10;
+      multipliedBalance = balance * multiplier;
+
+      if (multiplier >= 10 ** 6) break;
+    }
+
+    const numberValue = Math.floor(multipliedBalance / 100 * percent);
+    const newValue = numberValue / multiplier;
     onChange(newValue);
   };
 
